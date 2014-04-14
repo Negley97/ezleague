@@ -1,0 +1,102 @@
+/*
+ * ezLeague : Custom Styling
+ * Use this to override default CSS
+ */
+
+li.active {
+	font-weight:700;
+}
+
+.bs-docs-section {
+    margin-top: 2em;
+}
+
+.gm, .agm, .website {
+	color:#577799;
+	font-size:14px;
+}
+
+.website a:hover {
+	color:#577799;
+	font-size:14px;
+	text-decoration:none;
+}
+
+.center {
+	text-align:center;
+}
+
+.left {
+	text-align:left;
+}
+
+.bolder {
+	font-weight:700;
+}
+
+.italic {
+	font-style:italic;
+}
+
+.win {
+	color:#3CB521;
+	font-weight:700;
+}
+
+.loss {
+	color:#CD0200;
+	font-weight:300;
+}
+
+ div.login_success, div.register_success, div.success {
+ 	text-align:center;
+ 	background:#66AFE9;
+ 	margin-top:10px;
+ 	padding:5px;
+ 	border-radius:5px;
+ 	display:none;
+ }
+ 
+ span.login_success_text, span.register_success_text, span.success_text {
+ 	font-size:1.1em;
+ 	color:#E7E7E7;
+ 	font-weight:300;
+ }
+ 
+.byline {
+	font-size:1.0em;
+ 	font-weight:700;
+ }
+ 
+ .byline a:hover {
+	color:#426B97;
+ 	text-decoration:none;
+ }
+ 
+ .view-challenges {
+	margin-top:10px;
+ }
+ 
+ .yes {
+	color:#4EA6F4;
+ 	font-weight:700;
+ }
+ 
+ .no {
+	color:#CD0200;
+ 	font-weight:700;
+ }
+ 
+ .completed {
+	color:#166804;
+ 	font-weight:700;
+ }
+ 
+ #match-log {
+ 	min-height:300px;
+ }
+ 
+ /* 
+ .sidebar-guild {
+	font-size:0.8em;
+ } */

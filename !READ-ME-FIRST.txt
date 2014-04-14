@@ -1,0 +1,19 @@
+ezLeague Installation Guide
+----------------------------------------------------
+
+1. Open /lib/db.class.php & /lib/admin/db.class.php and add your database values
+2. Run /installer.php -- this will create the necessary database tables
+3. Navigate to http://your-ezleague-installation.com/admin -- you will be prompted to create your Admin Account
+4. After the previous 3 steps are successfully finished, delete the /installer.php file
+5. Enjoy, and please report any and all bugs.
+-----------------------------------------------------
+
+NOTES: A lot of work has gone into the base of this project, regardless of how limited the functionality is at this moment. More functionality will be added over time, but I thought it was important to get a stable release out as quickly as possible after the numerous emails I've received over the months. Also, this project and code is not meant to be perfect -- there will be bugs, and of course, there are and always will be better ways to write certain aspects and functions of this project. Instead of trying to over-complicate functionality, I wanted even the most beginner programmer to be able to go through this code and understand how it works, which I feel has been achieved. 
+
+If you're interested in helping with the future of this project, by all means, please contact me. It'd be great to work with other developers, and maybe, just maybe, even have a small community built out of this project, which seems to be happening already.
+
+All the best,
+
+Michael Loring
+MDLoring@gmail.com
+http://www.mdloring.com

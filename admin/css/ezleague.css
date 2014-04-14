@@ -1,0 +1,52 @@
+ div.login_success, div.success {
+ 	text-align:center;
+ 	background:#66AFE9;
+ 	margin-top:10px;
+ 	padding:5px;
+ 	border-radius:5px;
+ 	display:none;
+ }
+ 
+ span.login_success_text, span.success_text {
+ 	font-size:1.1em;
+ 	color:#E7E7E7;
+ 	font-weight:300;
+ }
+ 
+ .bolder {
+	font-weight:700;
+ }
+ 
+ .italic {
+	font-style:italic;
+ }
+ 
+ .center {
+	text-align:center;
+ }
+ 
+ .recent_users, .recent_teams, .current_leagues td {
+	font-size: .8em;
+ }
+ 
+ .dispute {
+	background:#EB6160;
+ }
+ 
+ .dispute_open {
+	background:#C0D1C0;
+ }
+ 
+ .dispute_closed {
+	background:#EB6160;
+ }
+ 
+ .user_suspended {
+	background:#EB6160;
+ 	font-weight:700;
+ }
+ 
+ .suspended {
+	padding:5px;
+ 	border-radius:2px;
+ }
