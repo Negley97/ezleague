@@ -1,21 +1,6 @@
-     <?php //$_F=__FILE__;$_X='Pz48ZjIydDVyPg0KICAgICAgICA8ZDR2IGNsMXNzPSJyMnciPg0KICAgICAgICAgIDxkNHYgY2wxc3M9ImMybC1sZy02YSI+DQoNCiAgICAgICAgICAgIDwzbCBjbDFzcz0ibDRzdC0zbnN0eWw1ZCI+DQogICAgICAgICAgICAgIDxsNCBjbDFzcz0icDNsbC1yNGdodCI+PDEgaHI1Zj0iI3QycCI+QjFjayB0MiB0MnA8LzE+PC9sND4NCiAgICAgICAgICAgICAgPGw0Pg0KICAgICAgICAgICAgICAJJmMycHk7IGEwNnUgPDEgaHI1Zj0iaHR0cDovL3d3dy5tZGwycjRuZy5jMm0vIiB0MXJnNXQ9Il9ibDFuayI+TURMMnI0bmc8LzE+DQogICAgICAgICAgICAgIDwvbDQ+DQogICAgICAgICAgICAgIDxsND48MSBocjVmPSJodHRwOi8vd3d3Lmc1dGIyMnRzdHIxcC5jMm0iIHQxcmc1dD0iX2JsMW5rIj5CMjJ0c3RyMXA8LzE+PC9sND4NCiAgICAgICAgICAgIDwvM2w+DQogICAgICAgICAgICANCiAgICAgICAgICA8L2Q0dj4NCiAgICAgICAgPC9kNHY+DQoNCiAgICAgIDwvZjIydDVyPg==';eval(base64_decode('JF9YPWJhc2U2NF9kZWNvZGUoJF9YKTskX1g9c3RydHIoJF9YLCcxMjM0NTZhb3VpZScsJ2FvdWllMTIzNDU2Jyk7JF9SPWVyZWdfcmVwbGFjZSgnX19GSUxFX18nLCInIi4kX0YuIiciLCRfWCk7ZXZhbCgkX1IpOyRfUj0wOyRfWD0wOw=='));?>
-
-
-     <footer>
-        <div class="row">
-          <div class="col-lg-12">
-            <ul class="list-unstyled">
-              <li class="pull-right"><a href="#top">Back to top</a></li>
-              <li>
-              	&copy; 2014 <a href="http://www.mdloring.com/" target="_blank">MDLoring</a>
-              </li>
-              <li><a href="http://www.getbootstrap.com" target="_blank">Bootstrap</a></li>
-            </ul>
-          </div>
-        </div>
-      </footer>
-    </div>
-<div id="loginModal" class="modal">
+<?php $_F=__FILE__;$_X='Pz4gICAgIDxmMjJ0NXI+DQogICAgICAgIDxkNHYgY2wxc3M9InIydyI+DQogICAgICAgICAgPGQ0diBjbDFzcz0iYzJsLWxnLTZhIj4NCiAgICAgICAgICAgIDwzbCBjbDFzcz0ibDRzdC0zbnN0eWw1ZCI+DQogICAgICAgICAgICAgIDxsNCBjbDFzcz0icDNsbC1yNGdodCI+PDEgaHI1Zj0iI3QycCI+QjFjayB0MiB0MnA8LzE+PC9sND4NCiAgICAgICAgICAgICAgPGw0Pg0KICAgICAgICAgICAgICAJJmMycHk7IGEwNnUgPDEgaHI1Zj0iaHR0cDovL3d3dy5tZGwycjRuZy5jMm0vIiB0MXJnNXQ9Il9ibDFuayI+TTRjaDE1bCBMMnI0bmc8LzE+DQogICAgICAgICAgICAgIDwvbDQ+DQogICAgICAgICAgICAgIDxsND48MSBocjVmPSJodHRwOi8vd3d3Lm1kbDJyNG5nLmMybS81emw1MWczNS1waHAtMm5sNG41LWcxbTRuZy1sNTFnMzUtc2NyNHB0LyIgdDFyZzV0PSJfYmwxbmsiPjV6TDUxZzM1PC8xPjwvbDQ+DQogICAgICAgICAgICAgIDxsND48MSBocjVmPSJodHRwczovL2c0dGgzYi5jMm0vc3QyMnBrNGQ2LzV6bDUxZzM1IiB0MXJnNXQ9Il9ibDFuayI+RzR0SDNiPC8xPjwvbDQ+DQogICAgICAgICAgICAgIDxsND48MSBocjVmPSJodHRwOi8vd3d3Lmc1dGIyMnRzdHIxcC5jMm0iIHQxcmc1dD0iX2JsMW5rIj5CMjJ0c3RyMXA8LzE+PC9sND4NCiAgICAgICAgICAgIDwvM2w+DQogICAgICAgICAgPC9kNHY+DQogICAgICAgIDwvZDR2Pg0KICAgICAgPC9mMjJ0NXI+DQogICAgPC9kNHY+';eval(base64_decode('JF9YPWJhc2U2NF9kZWNvZGUoJF9YKTskX1g9c3RydHIoJF9YLCcxMjM0NTZhb3VpZScsJ2FvdWllMTIzNDU2Jyk7JF9SPWVyZWdfcmVwbGFjZSgnX19GSUxFX18nLCInIi4kX0YuIiciLCRfWCk7ZXZhbCgkX1IpOyRfUj0wOyRfWD0wOw=='));?>
+  	
+ <div id="loginModal" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -89,7 +74,8 @@
     </div>
   </div>
 </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php print $site_url; ?>/admin/css/redmond/jquery-ui-1.10.4.custom.min.css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
