@@ -9,20 +9,27 @@
 		/*
 		 * Login User
 		 */
-		function login($username, $password) {
-			$saltData = $this->fetch("SELECT salt, hash, guild, role, status FROM `" . $this->prefix . "" . $this->prefix . "users` WHERE username = '$username'");
-				$salt  	  = $saltData['0']['salt'];
+		function login($username, $password) {
+
+			$saltData = $this->fetch("SELECT salt, hash, guild, role, status FROM `" . $this->prefix . "users` WHERE username = '$username'");
+
+				$salt  	  = $saltData['0']['salt'];
+
 				$hash  	  = $saltData['0']['hash'];
 				$guild_id = $saltData['0']['guild'];
 				$role  	  = $saltData['0']['role'];
-				$status   = $saltData['0']['status'];
-				 $hashCheck = crypt($password, $hash);
-					  	
+				$status   = $saltData['0']['status'];
+
+				 $hashCheck = crypt($password, $hash);
+
+					  	
+
 				  if($hashCheck === $hash) {
 				  	 if($status == 1) { 
 				  	 	print "Account suspended. Please contact the Admins";
 				  	 	exit();
-				  	 }
+				  	 }
+
 				  	$_SESSION['ez_username'] = $username;
 				  	 if($role == 'admin') {
 				  	 	$_SESSION['ez_admin'] = $username;
@@ -31,11 +38,16 @@
 				  	 if($guild_id != '') {
 				  	 	$guild = $this->getUserGuild($guild_id);
 				  	 	$_SESSION['ez_guild'] = $guild;
-				  	 }
-				 	 print "Logging in...";
-				  } else {
-				  	 print "Incorrect username or password";
-				  }
+				  	 }
+
+				 	 print "Logging in...";
+
+				  } else {
+
+				  	 print "Incorrect username or password";
+
+				  }
+
 		}
 					  
 		/*
@@ -45,23 +57,39 @@
 		 * the password is not stored
 		 */
 		function register($username, $password, $email) {		
-			$strength = '5';
+			$strength = '5';
+
 			$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
-			 //blowfish algorithm
-			$salt = sprintf("$2a$%02d$", $strength) . $salt;
-			$hash = crypt($password, $salt);
-			 //check to make sure this username or email does not already exist
-			$result = $this->link->query("SELECT * FROM `" . $this->prefix . "" . $this->prefix . "users` WHERE (username = '$username') OR (email = '$email')");
-			$count = $this->numRows($result);
-			if($count > 0) {
-				print "<strong>Error</strong> Username or E-Mail already exists";
-			} else {
-				$this->link->query("INSERT INTO `" . $this->prefix . "" . $this->prefix . "users` SET username = '$username', email = '$email', salt = '$salt',
-						hash = '$hash', role = 'user'
-						");
-				print "<strong>Success!</strong> Account has been created. You may now login.";
-			}
-		
+			 //blowfish algorithm
+
+			$salt = sprintf("$2a$%02d$", $strength) . $salt;
+
+			$hash = crypt($password, $salt);
+
+			 //check to make sure this username or email does not already exist
+
+			$result = $this->link->query("SELECT * FROM `" . $this->prefix . "users` WHERE (username = '$username') OR (email = '$email')");
+
+			$count = $this->numRows($result);
+
+			if($count > 0) {
+
+				print "<strong>Error</strong> Username or E-Mail already exists";
+
+			} else {
+
+				$this->link->query("INSERT INTO `" . $this->prefix . "users` SET username = '$username', email = '$email', salt = '$salt',
+
+						hash = '$hash', role = 'user'
+
+						");
+
+				print "<strong>Success!</strong> Account has been created. You may now login.";
+
+			}
+
+		
+
 		}
 			
 /*
@@ -76,11 +104,16 @@
 			 return $data;	
 		}
 		
-		function getSiteSettings() {
-			$settings = array();
-			 $data = $this->fetch("SELECT * FROM `" . $this->prefix . "settings` WHERE id = '1'");
-			  $settings = array('name' => $data['0']['site_name'], 'url' => $data['0']['site_url']);
-			 return $settings;
+		function getSiteSettings() {
+
+			$settings = array();
+
+			 $data = $this->fetch("SELECT * FROM `" . $this->prefix . "settings` WHERE id = '1'");
+
+			  $settings = array('name' => $data['0']['site_name'], 'url' => $data['0']['site_url']);
+
+			 return $settings;
+
 		}
 		
 		function getAllGames() {
@@ -335,18 +368,30 @@
 				return $data;
 		}
 		
-		function getLeagueResults($league_id) {
-			$data = $this->fetch("SELECT t.id, t.challenger, t.league_id, t.match_date, t.created, t.completed, t.challengee_score, t.challenger_score, t.g_challenger, t.challengee, g2.guild AS g_challengee
-								  FROM (
-									SELECT c1.id, c1.challenger, c1.created, c1.match_date, c1.league_id, c1.completed, c1.challengee_score, c1.challenger_score, g1.guild AS g_challenger, c1.challengee
-									FROM " . $this->prefix . "guilds g1
-									JOIN " . $this->prefix . "challenges c1
-									ON g1.id = c1.challenger
-								  ) t
-								  JOIN " . $this->prefix . "guilds g2
-								  ON g2.id = t.challengee
-								  WHERE (t.league_id = '$league_id' AND t.completed = 1)
-								  ORDER BY t.created DESC
+		function getLeagueResults($league_id) {
+
+			$data = $this->fetch("SELECT t.id, t.challenger, t.league_id, t.match_date, t.created, t.completed, t.challengee_score, t.challenger_score, t.g_challenger, t.challengee, g2.guild AS g_challengee
+
+								  FROM (
+
+									SELECT c1.id, c1.challenger, c1.created, c1.match_date, c1.league_id, c1.completed, c1.challengee_score, c1.challenger_score, g1.guild AS g_challenger, c1.challengee
+
+									FROM " . $this->prefix . "guilds g1
+
+									JOIN " . $this->prefix . "challenges c1
+
+									ON g1.id = c1.challenger
+
+								  ) t
+
+								  JOIN " . $this->prefix . "guilds g2
+
+								  ON g2.id = t.challengee
+
+								  WHERE (t.league_id = '$league_id' AND t.completed = 1)
+
+								  ORDER BY t.created DESC
+
 								");
 				/* $match_results = array (
 									'cid' 			   => $data['0']['id'],
@@ -360,8 +405,10 @@
 									'match_date'	   => $data['0']['match_date'],
 									'completed'		   => $data['0']['completed']
 								);
-				*/
-				return $data;
+				*/
+
+				return $data;
+
 		}
 		
 		function getLeagueName($league_id) {
@@ -395,8 +442,10 @@
 			  if($data['0']['match_date'] != '') { 
 			  	$match_date = date('F d, Y h:ia', strtotime($data['0']['match_date']));
 			  	 if($data['0']['match_hour'] != 0) { 
-			  	 	$match_hour = (strlen($data['0']['match_hour']) == 1 ? '0' . $data['0']['match_hour'] : $data['0']['match_hour']);
-			  	 	$match_min  = (strlen($data['0']['match_min']) == 1 ? '0' . $data['0']['match_min'] : $data['0']['match_min']);
+			  	 	$match_hour = (strlen($data['0']['match_hour']) == 1 ? '0' . $data['0']['match_hour'] : $data['0']['match_hour']);
+
+			  	 	$match_min  = (strlen($data['0']['match_min']) == 1 ? '0' . $data['0']['match_min'] : $data['0']['match_min']);
+
 			  	 	$match_time = $match_hour . ":" . $match_min . "" . $data['0']['match_pod'] . " " . $data['0']['match_zone'];
 			  	 } else {
 					$match_time = 'Match Time Not Set';
@@ -515,17 +564,28 @@
 		
 		function getChallengeStatus($cid) {
 			$challenge = $this->fetch("SELECT challenger_accepted, challengee_accepted FROM `" . $this->prefix . "challenges` WHERE id = '$cid'");
-			//get the challenge status of both guilds
-			$challenger_status = $challenge['0']['challenger_accepted'];
-			$challengee_status = $challenge['0']['challengee_accepted'];
-			
-			//check if both guilds have accepted the challenge
-			if($challenger_status == 1 && $challengee_status == 1) {
-				$match_status = 1;
-			} elseif($challenger_status == 2 || $challengee_status == 2) {
-				$match_status = 2;
-			} else {
-				$match_status = 0;
+			//get the challenge status of both guilds
+
+			$challenger_status = $challenge['0']['challenger_accepted'];
+
+			$challengee_status = $challenge['0']['challengee_accepted'];
+
+			
+
+			//check if both guilds have accepted the challenge
+
+			if($challenger_status == 1 && $challengee_status == 1) {
+
+				$match_status = 1;
+
+			} elseif($challenger_status == 2 || $challengee_status == 2) {
+
+				$match_status = 2;
+
+			} else {
+
+				$match_status = 0;
+
 			}
 			
 				return $match_status;
