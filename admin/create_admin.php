@@ -40,20 +40,20 @@ include('lib/ezleague.class.php');
                             <fieldset>
                             	<div class="form-group">
                                   <label>Username</label>
-                                    <input class="form-control" id="username" name="username" type="text">
+                                    <input class="form-control" id="admin-username" name="username" type="text">
                                 </div>
                                 <div class="form-group">
                                   <label>E-Mail Address</label>
-                                    <input class="form-control" id="email" name="email" type="text">
+                                    <input class="form-control" id="admin-email" name="email" type="text">
                                 </div>
                                 <div class="form-group">
                                   <label>Password</label>
-                                    <input class="form-control" id="password" name="password" type="password">
+                                    <input class="form-control" id="admin-password" name="password" type="password">
                                 </div>
                                 
                                 <div class="form-group">
                                   <label>Confirm Password</label>
-                                    <input class="form-control" id="confirm" name="confirm" type="password">
+                                    <input class="form-control" id="admin-confirm" name="confirm" type="password">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button type="submit" class="btn btn-lg btn-success btn-block">Create Account</button>

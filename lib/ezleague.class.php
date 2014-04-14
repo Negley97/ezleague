@@ -10,7 +10,7 @@
 		 * Login User
 		 */
 		function login($username, $password) {
-			$saltData = $this->fetch("SELECT salt, hash, guild, role, status FROM `users` WHERE username = '$username'");
+			$saltData = $this->fetch("SELECT salt, hash, guild, role, status FROM `" . $this->prefix . "" . $this->prefix . "users` WHERE username = '$username'");
 				$salt  	  = $saltData['0']['salt'];
 				$hash  	  = $saltData['0']['hash'];
 				$guild_id = $saltData['0']['guild'];
@@ -51,12 +51,12 @@
 			$salt = sprintf("$2a$%02d$", $strength) . $salt;
 			$hash = crypt($password, $salt);
 			 //check to make sure this username or email does not already exist
-			$result = $this->link->query("SELECT * FROM `users` WHERE (username = '$username') OR (email = '$email')");
+			$result = $this->link->query("SELECT * FROM `" . $this->prefix . "" . $this->prefix . "users` WHERE (username = '$username') OR (email = '$email')");
 			$count = $this->numRows($result);
 			if($count > 0) {
 				print "<strong>Error</strong> Username or E-Mail already exists";
 			} else {
-				$this->link->query("INSERT INTO `users` SET username = '$username', email = '$email', salt = '$salt',
+				$this->link->query("INSERT INTO `" . $this->prefix . "" . $this->prefix . "users` SET username = '$username', email = '$email', salt = '$salt',
 						hash = '$hash', role = 'user'
 						");
 				print "<strong>Success!</strong> Account has been created. You may now login.";
@@ -72,24 +72,24 @@
  * START GENERAL SITE FUNCTIONALITY
  */	
 		function getUsers() {
-			$data = $this->fetch("SELECT * FROM `users`");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users`");
 			 return $data;	
 		}
 		
 		function getSiteSettings() {
 			$settings = array();
-			 $data = $this->fetch("SELECT * FROM `settings` WHERE id = '1'");
+			 $data = $this->fetch("SELECT * FROM `" . $this->prefix . "settings` WHERE id = '1'");
 			  $settings = array('name' => $data['0']['site_name'], 'url' => $data['0']['site_url']);
 			 return $settings;
 		}
 		
 		function getAllGames() {
-			$data = $this->fetch("SELECT * FROM `games`");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "games`");
 			 return $data;
 		}
 		
 		function getGameBySlug($slug) {
-			$data = $this->fetch("SELECT game FROM `games` WHERE slug = '$slug'");
+			$data = $this->fetch("SELECT game FROM `" . $this->prefix . "games` WHERE slug = '$slug'");
 			 $game = $data['0']['game'];
 			  return $game;
 		}
@@ -111,17 +111,17 @@
  */		
 		
 		function getUser($id) {
-			$data = $this->fetch("SELECT * FROM `users` WHERE id = '$id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE id = '$id'");
 			 return $data;
 		}
 		
 		function getUserGuild($guild_id) {
-			$data = $this->fetch("SELECT * FROM `guilds` WHERE id = '$guild_id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "guilds` WHERE id = '$guild_id'");
 			 return $data;
 		}
 		
 		function getUserGuildId($user) {
-			$data = $this->fetch("SELECT guild FROM `users` WHERE username = '$user'");
+			$data = $this->fetch("SELECT guild FROM `" . $this->prefix . "users` WHERE username = '$user'");
 			 $guild_id = $data['0']['guild'];
 			  return $guild_id;
 		}
@@ -135,23 +135,23 @@
  */
 		
 		function getNewsAll() {
-			$data = $this->fetch("SELECT * FROM `news` WHERE published = '1'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "news` WHERE published = '1'");
 			 return $data;
 		}
 		
 		function getNewsGame($game) {
-			$data = $this->fetch("SELECT * FROM `news` WHERE (published = '1') AND (game = '$game')");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "news` WHERE (published = '1') AND (game = '$game')");
 			 return $data;
 		}
 		
 		function getNewsPost($id) {
-			$data = $this->fetch("SELECT * FROM `news` WHERE id = '$id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "news` WHERE id = '$id'");
 			 return $data;
 		}
 		
 		function getNewsByAuthor($author) {
 			$author = $this->link->real_escape_string($author);
-			$data = $this->fetch("SELECT * FROM `news` WHERE author = '$author'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "news` WHERE author = '$author'");
 			 return $data;
 		}
 
@@ -168,13 +168,13 @@
 			$abbr = $this->link->real_escape_string($abbr);
 			 $check = ezLeaguePub::teamCheck($team, $game);
 			  if($check == 0) {
-				$this->link->query("INSERT INTO `guilds` SET guild = '$team', abbreviation = '$abbr', admin = '$admin',
+				$this->link->query("INSERT INTO `" . $this->prefix . "guilds` SET guild = '$team', abbreviation = '$abbr', admin = '$admin',
 									game = '$game'
 								   ");
 				 //now set the admins guild to the new guilds id
-				  $latest = $this->fetch("SELECT id FROM guilds ORDER BY id DESC LIMIT 1");
+				  $latest = $this->fetch("SELECT id FROM `" . $this->prefix . "guilds` ORDER BY id DESC LIMIT 1");
 				   $latest_id = $latest['0']['id'];
-				    $this->link->query("UPDATE `users` SET guild = '$latest_id' WHERE username = '$admin'");
+				    $this->link->query("UPDATE `" . $this->prefix . "users` SET guild = '$latest_id' WHERE username = '$admin'");
 				print "<strong>Success!</strong> Team has been created.";
 			  } else {
 			  	print "<strong>Error</strong> Team Name already exists in this game.";
@@ -182,52 +182,52 @@
 		}
 		
 		function teamCheck($team, $game) {
-			$result = $this->fetch("SELECT guild, game FROM `guilds` WHERE (guild = '$team') AND (game = '$game')");
+			$result = $this->fetch("SELECT guild, game FROM `" . $this->prefix . "guilds` WHERE (guild = '$team') AND (game = '$game')");
 			 $count = count($result);
 			  return $count;	
 		}
 		
 		function getTeamsAll() {
-			$data = $this->fetch("SELECT * FROM `guilds`");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "guilds`");
 			 return $data;
 		}
 		
 		function getTeams($game) {
-			$data = $this->fetch("SELECT * FROM `guilds` WHERE game = '$game'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "guilds` WHERE game = '$game'");
 			 return $data;
 		}
 		
 		function getTeam($id) {
-			$data = $this->fetch("SELECT * FROM `guilds` WHERE id = '$id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "guilds` WHERE id = '$id'");
 			 return $data;
 		}
 		
 		function getTeamName($id) {
-			$data = $this->fetch("SELECT guild FROM `guilds` WHERE id = '$id'");
+			$data = $this->fetch("SELECT guild FROM `" . $this->prefix . "guilds` WHERE id = '$id'");
 			 $guild = $data['0']['guild'];
 			  return $guild;
 		}
 		
 		function getTeamMembers($id) {
-			$data = $this->fetch("SELECT * FROM `users` WHERE guild = '$id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE guild = '$id'");
 			 return $data;
 		}
 		
 		function getTeamLeagues($id) {
-			$data = $this->fetch("SELECT leagues FROM `guilds` WHERE id = '$id'");
+			$data = $this->fetch("SELECT leagues FROM `" . $this->prefix . "guilds` WHERE id = '$id'");
 			 $leagues = $data['0']['leagues'];
 			 return $leagues;
 		}
 		
 		function getTeamAdmin($id) {
-			$data = $this->fetch("SELECT admin FROM `guilds` WHERE id = '$id'");
+			$data = $this->fetch("SELECT admin FROM `" . $this->prefix . "guilds` WHERE id = '$id'");
 			 $admin = $data['0']['admin'];
 			  return $admin;
 		}
 		
 		function updateTeamSettings($id, $gm, $agm, $site, $admin) {
 			$site = $this->link->real_escape_string($site);
-			 $this->link->query("UPDATE `guilds` SET gm = '$gm', agm = '$agm', website = '$site', admin = '$admin'
+			 $this->link->query("UPDATE `" . $this->prefix . "guilds` SET gm = '$gm', agm = '$agm', website = '$site', admin = '$admin'
 			 			   WHERE id = '$id'
 			 			 ");
 
@@ -235,15 +235,15 @@
 		}
 		
 		function getTeamChallenges($team_id) {
-			//$data = $this->fetch("SELECT * FROM `challenges` WHERE (challenger = '$team_id') OR (challengee = '$team_id') ORDER BY created DESC");
+			//$data = $this->fetch("SELECT * FROM `" . $this->prefix . "challenges` WHERE (challenger = '$team_id') OR (challengee = '$team_id') ORDER BY created DESC");
 			$data = $this->fetch("SELECT t.id, t.challenger, t.created, t.completed, t. t.g_challenger, t.challengee, g2.guild AS g_challengee
 								  FROM (
 								    SELECT c1.id, c1.challenger, c1.created, c1.completed, g1.guild AS g_challenger, c1.challengee
-								    FROM guilds g1
-								  	JOIN challenges c1
+								    FROM " . $this->prefix . "guilds g1
+								  	JOIN " . $this->prefix . "challenges c1
 								  	ON g1.id = c1.challenger
 								  ) t 
-								  JOIN guilds g2
+								  JOIN " . $this->prefix . "guilds g2
 								  ON g2.id = t.challengee
 								  WHERE challenger = '$team_id' OR challengee = '$team_id'
 								");	
@@ -251,12 +251,12 @@
 		}
 		
 		function getTeamRecentMatches($team_id) {
-			$data = $this->fetch("SELECT * FROM `results` WHERE guild_id = '$team_id' ORDER BY id LIMIT 5");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "results` WHERE guild_id = '$team_id' ORDER BY id LIMIT 5");
 			 return $data;
 		}
 		
 		function getTeamPendingChallenges($id) {
-			$result = $this->link->query("SELECT * FROM `challenges` WHERE (challenger = '$id' OR challengee = '$id') 
+			$result = $this->link->query("SELECT * FROM `" . $this->prefix . "challenges` WHERE (challenger = '$id' OR challengee = '$id') 
 								  AND (completed = '0') 
 								  AND (challenger_accepted != '2' AND challengee_accepted != '2')
 								");
@@ -273,22 +273,22 @@
  */
 		
 		function getLeagues($game) {
-			$data = $this->fetch("SELECT * FROM `leagues` WHERE (game = '$game') AND (open = '1')");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "leagues` WHERE (game = '$game') AND (open = '1')");
 			 return $data;
 		}
 		
 		function getLeague($id) {
-			$data = $this->fetch("SELECT * FROM `leagues` WHERE id = '$id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "leagues` WHERE id = '$id'");
 			 return $data;
 		}
 		
 		function getLeagueGuilds($id) {
-			$data = $this->fetch("SELECT * FROM `guilds` WHERE leagues LIKE '%$id%'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "guilds` WHERE leagues LIKE '%$id%'");
 			 return $data;
 		}
 		
 		function joinLeague($guild, $league) {
-			$current_leagues = $this->fetch("SELECT leagues FROM `guilds` WHERE id = '$guild'");
+			$current_leagues = $this->fetch("SELECT `" . $this->prefix . "leagues` FROM `" . $this->prefix . "guilds` WHERE id = '$guild'");
 			 $leagues = $current_leagues['0']['leagues'];
 			  if($leagues == '') {
 			  	$new_leagues = $league . ",";
@@ -298,24 +298,24 @@
 			   //remove the trailing comma
 			   $new_leagues = rtrim($new_leagues, ",");
 			   
-			   $this->link->query("UPDATE `guilds` SET leagues = '$new_leagues' WHERE id = '$guild'");
+			   $this->link->query("UPDATE `" . $this->prefix . "guilds` SET leagues = '$new_leagues' WHERE id = '$guild'");
 			    print "<strong>Success!</strong> Your guild has joined the league.";
 			  return;
 		}
 		
 		function getLeagueStandings($id) {
-			$data = $this->fetch("SELECT guild, id, elo, leagues FROM `guilds` WHERE leagues LIKE '%$id%' ORDER BY elo DESC");
+			$data = $this->fetch("SELECT guild, id, elo, leagues FROM `" . $this->prefix . "guilds` WHERE leagues LIKE '%$id%' ORDER BY elo DESC");
 			  return $data;
 		}
 		
 		function getTotalLeagueTeams($league) {
-			$result = $this->link->query("SELECT id FROM `guilds` WHERE leagues LIKE '%$league%'");
+			$result = $this->link->query("SELECT id FROM `" . $this->prefix . "guilds` WHERE leagues LIKE '%$league%'");
 			 $count = $this->numRows($result);
 			  return $count;	
 		}
 		
 		function getLeaguesByGame($game) {
-			$data = $this->fetch("SELECT * FROM leagues WHERE game = '$game'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "leagues` WHERE game = '$game'");
 			  return $data;
 		}
 		
@@ -323,11 +323,11 @@
 			$data = $this->fetch("SELECT t.id, t.challenger, t.league_id, t.match_date, t.created, t.completed, t.challengee_accepted, t.challenger_accepted, t.g_challenger, t.challengee, g2.guild AS g_challengee
 								  FROM (
 								    SELECT c1.id, c1.challenger, c1.created, c1.match_date, c1.league_id, c1.completed, c1.challengee_accepted, c1.challenger_accepted, g1.guild AS g_challenger, c1.challengee
-								    FROM guilds g1
-								    JOIN challenges c1
+								    FROM " . $this->prefix . "guilds g1
+								    JOIN " . $this->prefix . "challenges c1
 								    ON g1.id = c1.challenger
 								  ) t 
-								  JOIN guilds g2
+								  JOIN " . $this->prefix . "guilds g2
 								  ON g2.id = t.challengee
 								  WHERE (t.league_id = '$league_id' AND t.completed = 0) AND (t.challengee_accepted != 2 AND t.challenger_accepted != 2)
 								  ORDER BY t.created DESC	
@@ -339,11 +339,11 @@
 			$data = $this->fetch("SELECT t.id, t.challenger, t.league_id, t.match_date, t.created, t.completed, t.challengee_score, t.challenger_score, t.g_challenger, t.challengee, g2.guild AS g_challengee
 								  FROM (
 									SELECT c1.id, c1.challenger, c1.created, c1.match_date, c1.league_id, c1.completed, c1.challengee_score, c1.challenger_score, g1.guild AS g_challenger, c1.challengee
-									FROM guilds g1
-									JOIN challenges c1
+									FROM " . $this->prefix . "guilds g1
+									JOIN " . $this->prefix . "challenges c1
 									ON g1.id = c1.challenger
 								  ) t
-								  JOIN guilds g2
+								  JOIN " . $this->prefix . "guilds g2
 								  ON g2.id = t.challengee
 								  WHERE (t.league_id = '$league_id' AND t.completed = 1)
 								  ORDER BY t.created DESC
@@ -365,13 +365,13 @@
 		}
 		
 		function getLeagueName($league_id) {
-			$data = $this->fetch("SELECT league FROM `leagues` WHERE id = '$league_id'"); 
+			$data = $this->fetch("SELECT league FROM `" . $this->prefix . "leagues` WHERE id = '$league_id'"); 
 			 $league = $data['0']['league'];
 			    return $league;
 		}
 		
 		function getLeagueRules($league_id) {
-			$data = $this->fetch("SELECT rules FROM `leagues` WHERE id = '$league_id'");
+			$data = $this->fetch("SELECT rules FROM `" . $this->prefix . "leagues` WHERE id = '$league_id'");
 			 $rules = $data['0']['rules'];
 			    return $rules;
 		}
@@ -385,7 +385,7 @@
  * START CHALLENGES FUNCTIONALITY
  */		
 		function getChallenge($id) {
-			$data = $this->fetch("SELECT * FROM `challenges` WHERE id = '$id'");
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "challenges` WHERE id = '$id'");
 			 $challenger_id = $data['0']['challenger'];
 			 $challengee_id = $data['0']['challengee'];
 			 $challenger = ezLeaguePub::getTeamName($challenger_id);
@@ -447,7 +447,7 @@
 		
 		function getChallengeScore($id) {
 			$data = $this->fetch("SELECT challenger, challenger_score, challengee, challengee_score, id
-								  FROM `challenges`
+								  FROM `" . $this->prefix . "challenges`
 								  WHERE id = '$id'
 								");
 			 $score = array(
@@ -464,11 +464,11 @@
 			$data = $this->fetch("SELECT t.id, t.challenger, t.created, t.completed, t.challengee_accepted, t.challenger_accepted, t.g_challenger, t.challengee, g2.guild AS g_challengee
 								  FROM (
 								    SELECT c1.id, c1.challenger, c1.created, c1.completed, c1.challengee_accepted, c1.challenger_accepted, g1.guild AS g_challenger, c1.challengee
-								    FROM guilds g1
-								    JOIN challenges c1
+								    FROM " . $this->prefix . "guilds g1
+								    JOIN " . $this->prefix . "challenges c1
 								    ON g1.id = c1.challenger
 								  ) t 
-									JOIN guilds g2
+									JOIN " . $this->prefix . "guilds g2
 									ON g2.id = t.challengee
 									WHERE t.id = '$id'
 								 ");
@@ -480,18 +480,18 @@
 		}
 		
 		function makeChallenge($challenger, $challengee, $league_id) {
-			$result = $this->link->query("SELECT * FROM `challenges` 
+			$result = $this->link->query("SELECT * FROM `" . $this->prefix . "challenges` 
 										  WHERE (challenger = '$challenger') AND (challengee = '$challengee')
 										  AND (accepted = '0') AND (league_id = '$league_id')
 										 ");
-			 print "SELECT * FROM `challenges` 
+			 print "SELECT * FROM `" . $this->prefix . "challenges` 
 										  WHERE (challenger = '$challenger') AND (challengee = '$challengee')
 										  AND (accepted = '0') AND (league_id = '$league_id')";
 			 $count = $this->numRows($result);
 			  if($count > 0) { 
 			  	print "<strong>Error</strong> A previous challenge to this Guild has not been accepted";
 			  } else { 
-				$this->link->query("INSERT INTO `challenges` SET challenger = '$challenger', challengee = '$challengee', 
+				$this->link->query("INSERT INTO `" . $this->prefix . "challenges` SET challenger = '$challenger', challengee = '$challengee', 
 									league_id = '$league_id'
 								   ");
 				print "<strong>Success!</strong> Your challenge has been made";
@@ -500,7 +500,7 @@
 		}
 		
 		function getTeamMadeLeagueChallenges($team_id, $league_id) {
-			$data = $this->fetch("SELECT challengee, league_id, id FROM `challenges` 
+			$data = $this->fetch("SELECT challengee, league_id, id FROM `" . $this->prefix . "challenges` 
 								  WHERE (challenger = '$team_id') AND (league_id = '$league_id') AND (accepted = '0')
 								");
 				return $data;	
@@ -508,13 +508,13 @@
 		
 		function updateChallengeStatus($id, $team, $status) {
 			$col = $team . "_accepted";
-			$this->link->query("UPDATE `challenges` SET $col = '$status' WHERE id = '$id'");
+			$this->link->query("UPDATE `" . $this->prefix . "challenges` SET $col = '$status' WHERE id = '$id'");
 			 print "<strong>Success!</strong> Challenge Status has been updated";
 			 	return;
 		}
 		
 		function getChallengeStatus($cid) {
-			$challenge = $this->fetch("SELECT challenger_accepted, challengee_accepted FROM `challenges` WHERE id = '$cid'");
+			$challenge = $this->fetch("SELECT challenger_accepted, challengee_accepted FROM `" . $this->prefix . "challenges` WHERE id = '$cid'");
 			//get the challenge status of both guilds
 			$challenger_status = $challenge['0']['challenger_accepted'];
 			$challengee_status = $challenge['0']['challengee_accepted'];
@@ -532,7 +532,7 @@
 		}
 		
 		function updateChallenge($challenge_id, $date, $hour, $min, $zone, $pod) {
-			$this->link->query("UPDATE `challenges` SET match_date = '$date', match_hour = '$hour', match_min = '$min',
+			$this->link->query("UPDATE `" . $this->prefix . "challenges` SET match_date = '$date', match_hour = '$hour', match_min = '$min',
 						  match_zone = '$zone', match_pod = '$pod'
 						  WHERE id = '$challenge_id'
 						");
@@ -541,18 +541,18 @@
 		}
 		
 		function updateChallengeResponse($challenge_id, $response, $user) {
-			$data = $this->fetch("SELECT chat_log FROM `challenges` WHERE id = '$challenge_id'");
+			$data = $this->fetch("SELECT chat_log FROM `" . $this->prefix . "challenges` WHERE id = '$challenge_id'");
 			 $current = $data['0']['chat_log'];
 			  $update = $response . "<br>" . $current;
 			   $new = $this->link->real_escape_string($update);
-			    $this->link->query("UPDATE `challenges` SET chat_log = '$new' WHERE id = '$challenge_id'");
+			    $this->link->query("UPDATE `" . $this->prefix . "challenges` SET chat_log = '$new' WHERE id = '$challenge_id'");
 			     print "<strong>Success!</strong> Response has been added";
 			      return;
 			
 		}
 		
 		function submitChallengeScore($challenge_id, $challenger, $challengee) {
-			$this->link->query("UPDATE `challenges` SET completed = '1', challenger_score = '$challenger', challengee_score = '$challengee' WHERE id = '$challenge_id'");
+			$this->link->query("UPDATE `" . $this->prefix . "challenges` SET completed = '1', challenger_score = '$challenger', challengee_score = '$challengee' WHERE id = '$challenge_id'");
 			 print "<strong>Success!</strong> Challenge score has been submitted";
 			  return;
 		}
@@ -568,7 +568,7 @@
 		function runInstaller($database, $prefix) {
 		
 			$sql1 = "
-			CREATE TABLE `" . $prefix . "challenges` (
+			CREATE TABLE `" . $this->prefix . "challenges` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `challenger` int(10) DEFAULT NULL,
 			  `challengee` int(10) DEFAULT NULL,
@@ -593,7 +593,7 @@
 			$this->link->query($sql1);
 			
 			$sql2= "
-			CREATE TABLE `" . $prefix . "disputes` (
+			CREATE TABLE `" . $this->prefix . "disputes` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `challenge_id` int(10) DEFAULT NULL,
 			  `description` varchar(2000) DEFAULT NULL,
@@ -607,7 +607,7 @@
 			$this->link->query($sql2);
 			
 			$sql3 = "
-			CREATE TABLE `" . $prefix . "forum_answer` (
+			CREATE TABLE `" . $this->prefix . "forum_answer` (
 			  `a_id` int(10) NOT NULL AUTO_INCREMENT,
 			  `question_id` int(10) NOT NULL,
 			  `a_answer` longtext NOT NULL,
@@ -622,7 +622,7 @@
 			$this->link->query($sql3);
 			
 			$sql4 = "
-			CREATE TABLE `" . $prefix . "forum_question` (
+			CREATE TABLE `" . $this->prefix . "forum_question` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `topic` varchar(255) NOT NULL,
 			  `detail` longtext NOT NULL,
@@ -642,7 +642,7 @@
 			$this->link->query($sql4);
 			
 			$sql5 = "
-			CREATE TABLE `" . $prefix . "forum_section` (
+			CREATE TABLE `" . $this->prefix . "forum_section` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `section_name` varchar(50) NOT NULL,
 			  `type` varchar(25) NOT NULL DEFAULT 'public',
@@ -653,7 +653,7 @@
 			$this->link->query($sql5);
 			
 			$sql6 = "
-			CREATE TABLE `" . $prefix . "games` (
+			CREATE TABLE `" . $this->prefix . "games` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `game` varchar(100) DEFAULT NULL,
 			  `slug` varchar(50) NOT NULL,
@@ -664,7 +664,7 @@
 			$this->link->query($sql6);
 			
 			$sql7 = "
-			CREATE TABLE `" . $prefix . "guilds` (
+			CREATE TABLE `" . $this->prefix . "guilds` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `guild` varchar(50) DEFAULT NULL,
 			  `abbreviation` varchar(5) DEFAULT NULL,
@@ -683,7 +683,7 @@
 			$this->link->query($sql7);
 			
 			$sql8 = "
-			CREATE TABLE `" . $prefix . "leagues` (
+			CREATE TABLE `" . $this->prefix . "leagues` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `league` varchar(50) DEFAULT NULL,
 			  `teams` int(19) DEFAULT '6',
@@ -700,7 +700,7 @@
 			$this->link->query($sql8);
 			
 			$sql9 ="
-			CREATE TABLE `" . $prefix . "news` (
+			CREATE TABLE `" . $this->prefix . "news` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `title` varchar(255) DEFAULT NULL,
 			  `body` varchar(5000) DEFAULT NULL,
@@ -716,7 +716,7 @@
 			$this->link->query($sql9);
 
 			$sql10 = "
-			CREATE TABLE `" . $prefix . "news_category` (
+			CREATE TABLE `" . $this->prefix . "news_category` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `category` varchar(50) DEFAULT NULL,
 			  PRIMARY KEY (`id`)
@@ -726,7 +726,7 @@
 			$this->link->query($sql10);
 	
 			$sql11 = "
-			CREATE TABLE `" . $prefix . "results` (
+			CREATE TABLE `" . $this->prefix . "results` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `guild_id` int(10) NOT NULL,
 			  `league_id` int(10) NOT NULL,
@@ -740,7 +740,7 @@
 			$this->link->query($sql11);
 			
 			$sql12 = "
-			CREATE TABLE `" . $prefix . "screenshots` (
+			CREATE TABLE `" . $this->prefix . "screenshots` (
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `filename` varchar(255) NOT NULL,
 			  `challenge_id` int(10) NOT NULL,
@@ -753,7 +753,7 @@
 			$this->link->query($sql12);
 			
 			$sql13 = "
-			CREATE TABLE `" . $prefix . "settings` (
+			CREATE TABLE `" . $this->prefix . "settings` (
 			  `id` int(1) NOT NULL DEFAULT '1',
 			  `site_name` varchar(100) DEFAULT NULL,
 			  `site_url` varchar(255) DEFAULT NULL,
@@ -764,7 +764,7 @@
 			$this->link->query($sql13);
 			
 			$sql14 = "
-			CREATE TABLE `" . $prefix . "users` (
+			CREATE TABLE `" . $this->prefix . "users` (
 			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 			  `username` varchar(50) DEFAULT NULL,
 			  `email` varchar(150) DEFAULT NULL,

@@ -16,6 +16,7 @@ class DB_Class {
 		var $username = ""; //database username
 		var $password = ""; //database password
 		var $database = ""; //mysql database
+		var $prefix = ""; //database table prefix
 		
 		public function __construct() {
 			global $connection;

@@ -13,31 +13,38 @@
  * START LOGIN & REGISTRATION FUNCTIONALITY
  */
 //user registration
-	$('#silentRegister').submit(function(e) {
-		var email	    = $("#email").val();
-			password    = $("#register_password").val();
-			confirm     = $("#confirm").val();
-			business    = $("#business").val();
-			//newsletter  = $("#newsletter").val();
-			newsletter  = "Yes";
-			
+
+//create admin
+	$('#ezLeagueAdmin').submit(function(e) {
+		var username    = $("#admin-username").val();
+			email	    = $("#admin-email").val();
+			password    = $("#admin-password").val();
+			confirm     = $("#admin-confirm").val();
+
 		 e.preventDefault();
+	if(password == confirm && password != '') {
 	 $.ajax({
 	     type: "POST",
-	     url: "submission.php",
-	     data: "form=register&email=" + email + "&password=" + password + "&confirm=" + confirm + "&business=" + business + "&newsletter=" + newsletter
+	     url: "submit.php",
+	     data: { form: 'create-admin', username: '' + username + '', email: '' + email + '', password: '' + password + '', confirm: '' + confirm + '' }
 	   }).success(function( msg ) {
-		      $('.register_success').css("display", "");
-		      $(".register_success").fadeIn(1000, "linear");
-		      $('.register_success_text').fadeIn("slow");
-	 	  $('.register_success_text').html(msg);
+		      $('.success').css("display", "");
+		      $(".success").fadeIn(1000, "linear");
+		      $('.success_text').fadeIn("slow");
+		      $('.success_text').html(msg);
 	 	  //$(".login_success").fadeOut(5200, "linear");
-	 	   if(msg == "Account created...logging in.") {
-	 		   window.location = 'index.php';
+	 	   if(msg == "<strong>Success!</strong> Account has been created. You may now login.") {
+	 		  setTimeout(function(){window.location='index.php'},3000);
 	 	   }
 	  });
+	} else {
+			$('.register_success').css("display", "");
+	        $(".register_success").fadeIn(1000, "linear");
+	        $('.register_success_text').fadeIn("slow");
+	        $('.register_success_text').html('<strong>Error</strong> Passwords do not match');
+	}
 	});
-
+	
 //login to ezLeague	
 	$('#ezLeagueLogin').submit(function(e) {
 		var username	= $("#username").val();
