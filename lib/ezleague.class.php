@@ -172,6 +172,12 @@
 			 return $data;
 		}
 		
+		function getNewsAmount() {
+			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "news` WHERE published = '1'");
+			$count = $this->numRows($data);
+			return $count;
+		}
+		
 		function getNewsGame($game) {
 			$data = $this->fetch("SELECT * FROM `" . $this->prefix . "news` WHERE (published = '1') AND (game = '$game')");
 			 return $data;
