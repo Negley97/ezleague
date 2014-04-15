@@ -32,16 +32,15 @@
 		      $(".success").fadeIn(1000, "linear");
 		      $('.success_text').fadeIn("slow");
 		      $('.success_text').html(msg);
-	 	  //$(".login_success").fadeOut(5200, "linear");
 	 	   if(msg == "<strong>Success!</strong> Account has been created. You may now login.") {
 	 		  setTimeout(function(){window.location='index.php'},3000);
 	 	   }
 	  });
 	} else {
-			$('.register_success').css("display", "");
-	        $(".register_success").fadeIn(1000, "linear");
-	        $('.register_success_text').fadeIn("slow");
-	        $('.register_success_text').html('<strong>Error</strong> Passwords do not match');
+			$('.success').css("display", "");
+	        $(".success").fadeIn(1000, "linear");
+	        $('.success_text').fadeIn("slow");
+	        $('.success_text').html('<strong>Error</strong> Passwords do not match');
 	}
 	});
 	
