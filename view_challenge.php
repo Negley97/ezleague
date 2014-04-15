@@ -24,8 +24,6 @@
 	 		    $match_zone   = $challenge['match_zone'];
 	 		    $match_log    = $challenge['match_log'];
 	 		    
-	 		    
-	 		    
 	 		    //get completed
 	 		    $match_completed = $challenge['match_completed'];
 	 		    
@@ -69,6 +67,11 @@ include('sidebar.php');
                	 <div class="panel-body">
                	  <?php if(isset($_SESSION['ez_username']) && $challengee_admin == $_SESSION['ez_username'] || $challenger_admin == $_SESSION['ez_username']) { ?>
                	    <?php if($match_completed == 0) { ?>
+               	   <div class="row">
+               	    <div class="col-lg-3">
+               	     <a href="<?php echo $site_url; ?>/challenges/view/team/<?php print $ez_guild_id; ?>" class="btn btn-primary btn-sm">Back to Challenges</a>
+               	    </div>
+               	   </div>
                	   <div class="row">
                	   	 <div class="success">
                	   	 	<span class="success_text"></span>
@@ -263,12 +266,19 @@ include('sidebar.php');
                	    <div class="col-lg-3">
                	      <h3>Match Status</h3>
                	       <h4 class="text-success bolder">Completed</h4>
-               	       <button type="button" class="btn btn-danger btn-sm">File Dispute</button>
+               	       <?php $has_dispute = $ez->checkForUserDispute($cid, $ez_username); ?>
+               	       <button <?php print ($has_dispute == false ? '' : 'disabled'); ?> type="button" class="btn btn-danger btn-sm" data-target="#disputeModal" data-toggle="modal">File Dispute</button>
                	    </div>
                	    <div class="col-lg-3">
                	      <h3>Match Score</h3>
                	       <h4>Challenger <span class="text-primary"><?php print $score['challenger_score']; ?></span></h4>
                	       <h4>Challengee <span class="text-info"><?php print $score['challengee_score']; ?></span></h4>
+               	    </div>
+               	   </div>
+               	   <hr/>
+               	   <div class="row">
+               	    <div class="col-lg-3">
+               	     <a href="<?php echo $site_url; ?>/challenges/view/team/<?php print $ez_guild_id; ?>" class="btn btn-primary btn-sm">Back to Challenges</a>
                	    </div>
                	   </div>
                	   <?php } //end match completed ?>
@@ -285,5 +295,43 @@ include('sidebar.php');
       <?php } ?> 
 	</div>
 
+<div id="disputeModal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h4 class="modal-title">File a Dispute: Challenge #<?php print $cid; ?></h4>
+      </div>
+      <div class="modal-body">
+       <div class="row">
+        <div class="col-lg-10">
+         <p>Please describe why you are filing a dispute for this challenge</p>
+          <form role="form" name="ezLeagueDispute" id="ezLeagueDispute" method="POST">
+           <input type="hidden" name="challenge-id" id="challenge-id" value="<?php print $cid; ?>" />
+           <input type="hidden" name="challenge-filer" id="dispute-filer" value="<?php print $ez_username; ?>" />
+            <div class="form-group">
+              <h5>Description</h5>
+              <textarea class="form-control textarea" id="dispute-description" name="dispute-description"></textarea>
+            </div>
+            <div class="form-group">
+              <h5>Submitted By</h5>
+              <input class="form-control text placeholder" value="<?php print $ez_username; ?>" type="text" disabled>
+            </div>
+            <div class="form-group">
+              <div class="success">
+          	   <span class="success_text"></span>
+         	  </div>
+         	</div>
+         </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">File Dispute</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div> 
+     </form>
+    </div>
+  </div>
+</div>
 
 <?php include('footer.php'); ?>

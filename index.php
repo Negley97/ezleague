@@ -7,7 +7,7 @@
               <div class="panel panel-primary">
                 <div class="panel-heading">
                   <h3 class="panel-title">League News</h3>
-                </div>
+                </div> 
           <?php $news_posts = $ez->getNewsAll(); 
             	 if($news_posts != false) {
 	           	  foreach($news_posts as $news) { 
