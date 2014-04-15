@@ -19,6 +19,8 @@ Michael Loring
 MDLoring@gmail.com
 http://www.mdloring.com
 
+Contributing Developers: Robert T (excusemyluck)
+
 ezLeague is licensed under the MIT License, Open Source Initiative & Creative Commons Attribution 3.0 License:
 
 The MIT License (MIT)
