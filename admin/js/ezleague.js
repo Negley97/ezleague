@@ -63,6 +63,36 @@
 	  });
 	});
 
+//create new user	
+	$('#ezLeagueRegister').submit(function(e) {
+		var username    = $("#register-username").val();
+			email	    = $("#register-email").val();
+			password    = $("#register-password").val();
+			confirm     = $("#register-confirm").val();
+
+		 e.preventDefault();
+	if(password == confirm && password != '') {
+	 $.ajax({
+	     type: "POST",
+	     url: "submit.php",
+	     data: { form: 'register', username: '' + username + '', email: '' + email + '', password: '' + password + '', confirm: '' + confirm + '' }
+	   }).success(function( msg ) {
+		      $('.success').css("display", "");
+		      $(".success").fadeIn(1000, "linear");
+		      $('.success_text').fadeIn("slow");
+		      $('.success_text').html(msg);
+	 	   if(msg == "<strong>Success!</strong> Account has been created. You may now login.") {
+	 		  setTimeout(function(){location.reload()},3000);
+	 	   }
+	  });
+	} else {
+			$('.success').css("display", "");
+	        $(".success").fadeIn(1000, "linear");
+	        $('.success_text').fadeIn("slow");
+	        $('.success_text').html('<strong>Error</strong> Passwords do not match');
+	}
+	});
+	
 /*
  * END LOGIN & REGISTRATION FUNCTIONALITY
  */	

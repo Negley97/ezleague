@@ -22,6 +22,26 @@
   				}
 		}
 		
+		function register($username, $password, $email) {
+			$strength = '5';
+			$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+			//blowfish algorithm
+			$salt = sprintf("$2a$%02d$", $strength) . $salt;
+			$hash = crypt($password, $salt);
+			//check to make sure this username or email does not already exist
+			$result = $this->link->query("SELECT * FROM `" . $this->prefix . "" . $this->prefix . "users` WHERE (username = '$username') OR (email = '$email')");
+			$count = $this->numRows($result);
+			if($count > 0) {
+				print "<strong>Error</strong> Username or E-Mail already exists";
+			} else {
+				$this->link->query("INSERT INTO `" . $this->prefix . "" . $this->prefix . "users` SET username = '$username', email = '$email', salt = '$salt',
+						hash = '$hash', role = 'user'
+						");
+				print "<strong>Success!</strong> Account has been created. You may now login.";
+			}
+		
+		}
+		
 		function checkForAdmins() {
 			$result = $this->link->query("SELECT id FROM `" . $this->prefix . "users` WHERE role = 'admin'");
 			 $count = 0;
