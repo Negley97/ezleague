@@ -1,11 +1,11 @@
 ezLeague Installation Guide
 ----------------------------------------------------
 
-1. Open /lib/db.class.php & /lib/admin/db.class.php and add your database values
-2. Open /js/ezleague.js & /js/ezleague.js and update the top 2 variables with your sites URL (yoursite.com/submit.php & yoursite.com/admin/submit.php)
-3. Run /installer.php -- this will create the necessary database tables
+1. Open '/lib/db.class.php' & '/lib/admin/db.class.php' and add your database values
+2. Open '/js/ezleague.js' & '/admin/js/ezleague.js' and update the top 2 variables with your sites URL (yoursite.com/submit.php & yoursite.com/admin/submit.php)
+3. Run '/install.php' -- This will create the necessary database tables
 4. Navigate to http://your-ezleague-installation.com/admin -- you will be prompted to create your Admin Account
-5. After the previous 3 steps are successfully finished, delete the /installer.php file
+5. After you have completed the past steps, delete the 'install.php' file
 6. Enjoy, and please report any and all bugs.
 -----------------------------------------------------
 
