@@ -122,6 +122,14 @@
     	 		 $ez->deleteUser($id);
     	 		break;
     	 		
+    	 	case 'create-admin':
+    	 		$username	= $_POST['username'];
+    	 		$password	= $_POST['password'];
+    	 		$confirm	= $_POST['confirm'];
+    	 		$email		= $_POST['email'];
+    	 		 $ez->createAdmin($username, $password, $email);
+    	 		break;
+    	 		
 /*
  * END USERS
  */    	 	
