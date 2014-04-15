@@ -96,6 +96,10 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
+                    <hr/>
+                    <li>
+                        <a href="../index.php"><i class="fa fa-globe fa-fw"></i> View Site</a>
+                    </li>
                 </ul>
                 <!-- /#side-menu -->
             </div>
