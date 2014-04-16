@@ -15,7 +15,7 @@
                 </div>
                 <div class="panel-body">
                   <span class="byline">By <span class="text-info"><a href="<?php print $site_url; ?>/news/author/<?php print $news_post['0']['author']; ?>"><?php echo $news_post['0']['author']; ?></a></span> @ <?php echo date('F d, Y h:ia', strtotime($news_post['0']['created'])); ?></span>
-                  <p><?php echo $news_post['0']['body']; ?></p>
+                  <?php echo $news_post['0']['body']; ?>
                 </div>
                 
                 <?php } elseif(isset($_GET['author'])) { 
@@ -31,7 +31,7 @@
 			                <div class="panel-body">
 			                  <h4 class="text-primary"><a href="<?php echo $site_url; ?>/news/<?php echo $news['id']; ?>"><?php echo $news['title']; ?></a></h4>
 			                   <span class="byline">By <span class="text-info"><a href="<?php print $site_url; ?>/news/author/<?php print $news['author']; ?>"><?php echo $news['author']; ?></a></span> @ <?php echo date('F d, Y h:ia', strtotime($news['created'])); ?></span>
-			                   <p><?php echo $news['body']; ?></p>
+			                   <?php echo $news['body']; ?>
 			                </div>
                 <?php     } ?>
                 			</div>

@@ -12,6 +12,14 @@
     	 		$password = $_POST['password'];
     	 		 $ez->login($username, $password);
     	 	 break;
+    	 	 
+    	 	 case 'register':
+    	 	 	$username	= $_POST['username'];
+    	 	 	$password	= $_POST['password'];
+    	 	 	$confirm	= $_POST['confirm'];
+    	 	 	$email		= $_POST['email'];
+    	 	 	 $ez->register($username, $password, $email);
+    	 	 	break;
     	 		
 /*
  * START NEWS

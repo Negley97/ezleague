@@ -103,9 +103,10 @@
 //add news post	
 	$('#addNews').submit(function(e) {
 		var title		= $("#title").val();
-			body		= $("textarea#body").val();
+			body		= CKEDITOR.instances['news_body'].getData();
 			author		= $("#author").val();
 			game		= $("input[name=game]:checked").val();
+
 			 //if the game hasnt been selected, set all as the default
 			 if(game == undefined) {
 				 game = 'all';
@@ -131,7 +132,7 @@
 			      $(".success").fadeIn(1000, "linear");
 			      $('.success_text').fadeIn("slow");
 			      $('.success_text').html(msg);
-			      setTimeout(function(){location.reload()},3000);
+			     // setTimeout(function(){location.reload()},3000);
 		  });
 	
 	});

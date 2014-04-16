@@ -241,6 +241,26 @@
 	});
 	
 	
+//submit dispute
+	$('#ezLeagueDispute').submit(function(e) {
+		var id		       = $("#challenge-id").val();
+			description    = $("#dispute-description").val();
+			filer	       = $("#dispute-filer").val();
+			
+		 e.preventDefault();
+	 $.ajax({
+	     type: "POST",
+	     url: url,
+	     data: { form: 'dispute', id: '' + id + '', description: '' + description + '', filer: '' + filer + '' }
+	   }).success(function( msg ) {
+		      $('.success').css("display", "");
+		      $(".success").fadeIn(1000, "linear");
+		      $('.success_text').fadeIn("slow");
+		      $('.success_text').html(msg);
+		      setTimeout(function(){location.reload()},3000);
+	  });
+	});
+	
 /*
  * GENERAL
  */	
