@@ -1,6 +1,6 @@
 ezLeague v1.1
 "a custom php online gaming script"
-
+------------------------------------------------------------------------------------------------------------------------
 (bug fixes listed at the bottom)
 
 http://www.mdloring.com
@@ -24,19 +24,19 @@ BUG FIXES AND UPDATES
 ------------------------------------------------------------------------------------------------------------------------
 v1.1
  - removed installation step #2
- - -> ./header.php, ./js/ezleague.js
+  ./header.php, ./js/ezleague.js
  
  - fixed add news body text issue
- - -> ./admin/js/ezleague.js, ./admin/submit.php, ./index.php, ./js/ezleague.js, ./news.php
+  ./admin/js/ezleague.js, ./admin/submit.php, ./index.php, ./js/ezleague.js, ./news.php
  
  - login function double-prefix bug
- - -> ./lib/ezleague.class.php
+  ./lib/ezleague.class.php
  
  - added dispute functionality
- - -> ./index.php, ./view_challenge.php
+  ./index.php, ./view_challenge.php
  
  - display message if no news items found
- - -> ./index.php, ./lib/ezleague.class.php
+  ./index.php, ./lib/ezleague.class.php
  
  - added a View Site link in the sidebar on the admin side
- - -> ./admin/sidebar.php
+  ./admin/sidebar.php
