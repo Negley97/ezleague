@@ -39,6 +39,9 @@ $ez = new ezLeaguePub();
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+ 		var site_url = '<?php print $site_url; ?>';
+    </script>
 </head>
   <body>
 
