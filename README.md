@@ -1,3 +1,4 @@
+------------------------------------------------------------------------------------------------------------------------
 ezLeague v1.1
 "a custom php online gaming script"
 ------------------------------------------------------------------------------------------------------------------------
@@ -23,20 +24,14 @@ Admin Panel to control and modify all Leagues, Matches, Users and Data
 BUG FIXES AND UPDATES
 ------------------------------------------------------------------------------------------------------------------------
 v1.1
- - removed installation step #2
-  ./header.php, ./js/ezleague.js
+ - removed installation step #2 -- ./header.php, ./js/ezleague.js
  
- - fixed add news body text issue
-  ./admin/js/ezleague.js, ./admin/submit.php, ./index.php, ./js/ezleague.js, ./news.php
+ - fixed add news body text issue -- ./admin/js/ezleague.js, ./admin/submit.php, ./index.php, ./js/ezleague.js, ./news.php
  
- - login function double-prefix bug
-  ./lib/ezleague.class.php
+ - login function double-prefix bug -- ./lib/ezleague.class.php
  
- - added dispute functionality
-  ./index.php, ./view_challenge.php
+ - added dispute functionality -- ./index.php, ./view_challenge.php
  
- - display message if no news items found
-  ./index.php, ./lib/ezleague.class.php
+ - display message if no news items found -- ./index.php, ./lib/ezleague.class.php
  
- - added a View Site link in the sidebar on the admin side
-  ./admin/sidebar.php
+ - added a View Site link in the sidebar on the admin side -- /admin/sidebar.php
