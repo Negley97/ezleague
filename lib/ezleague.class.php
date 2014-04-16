@@ -10,7 +10,7 @@
 		 * Login User
 		 */
 		function login($username, $password) {
-			$saltData = $this->fetch("SELECT salt, hash, guild, role, status FROM `" . $this->prefix . "" . $this->prefix . "users` WHERE username = '$username'");
+			$saltData = $this->fetch("SELECT salt, hash, guild, role, status FROM `" . $this->prefix . "users` WHERE username = '$username'");
 				$salt  	  = $saltData['0']['salt'];
 				$hash  	  = $saltData['0']['hash'];
 				$guild_id = $saltData['0']['guild'];
@@ -568,8 +568,19 @@
 			$this->link->query("INSERT INTO `" . $this->prefix . "disputes`
 								SET challenge_id = '$id', description = '$description', filed_by = '$filer'
 							  ");
-			 print "<strong>Success!</strong> Dispute has been filed for Challenge #$id";
+			 print "<strong>Success!</strong> Dispute has been filed for Challenge #$id...reloading";
 			  return;
+		}
+		
+		function checkForUserDispute($id, $username) {
+			$check = $this->fetch("SELECT * FROM `" . $this->prefix . "disputes` 
+								   WHERE challenge_id = '$id' AND filed_by = '$username'
+								 ");
+			 if(empty($check)) {
+			 	return false;
+			 } else {
+			 	return true;
+			 }
 		}
 		
 /*
