@@ -1,20 +1,20 @@
 RewriteEngine On
 RewriteRule game/(.+)/standings standings.php?game=$1 [L]
 RewriteRule game/([^/]*)/schedules  schedules.php?game=$1 [L]
-RewriteRule game/([^/]*)/schedule/id/([^/]*)$ /ezleague/schedule.php?game=$1&id=$2
+RewriteRule game/([^/]*)/schedule/id/([^/]*)$ schedule.php?game=$1&id=$2
 RewriteRule game/([^/]*)/results  results.php?game=$1 [L]
-RewriteRule game/([^/]*)/result/id/([^/]*)$ /ezleague/results.php?game=$1&id=$2
-RewriteRule game/([^/]*)/rules/id/([^/]*)$ /ezleague/rules.php?game=$1&league_id=$2
+RewriteRule game/([^/]*)/result/id/([^/]*)$ results.php?game=$1&id=$2
+RewriteRule game/([^/]*)/rules/id/([^/]*)$ rules.php?game=$1&league_id=$2
 RewriteRule news/([0-9]+)$  news.php?id=$1 [L]
 RewriteRule news/author/([^/]*)$  news.php?author=$1 [L]
 RewriteRule game/(.+)$/news/([0-9]+)$  news.php?id=$1 [L]
-RewriteRule game/([^/]*)/teams/id/([^/]*)$ /ezleague/team.php?game=$1&id=$2
+RewriteRule game/([^/]*)/teams/id/([^/]*)$ team.php?game=$1&id=$2
 RewriteRule game/(.+)/teams  teams.php?game=$1
 RewriteRule game/(.+)/leagues  leagues.php?game=$1 [L]
 RewriteRule game/(.+)$  game.php?game=$1 [L]
 RewriteRule users/id/([0-9]+)$  user.php?id=$1 [L]
 RewriteRule create/team  create_team.php [L]
-RewriteRule team-admin/([^/]*)$ /ezleague/team_admin.php?id=$1
+RewriteRule team-admin/([^/]*)$ team_admin.php?id=$1
 RewriteRule users  users.php [L]
 RewriteRule contact  contact.php
 RewriteRule challenges/make/([^/]*)$ challenges.php?id=$1
