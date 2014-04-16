@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
 * Custom Javascript & jQuery
 * About: Used to handle form submissions & button onclicks
@@ -361,6 +362,8 @@
 		});
 	
 =======
+=======
+>>>>>>> 871aac6fb2abdcb263a59c035d16f0e633ee3f31
 /**
 
 * Custom Javascript & jQuery
@@ -1080,4 +1083,7 @@
 		});
 
 	
+<<<<<<< HEAD
+>>>>>>> 871aac6fb2abdcb263a59c035d16f0e633ee3f31
+=======
 >>>>>>> 871aac6fb2abdcb263a59c035d16f0e633ee3f31
